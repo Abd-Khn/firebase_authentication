@@ -107,6 +107,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       .then((UserCredential userCredential) {
                     // print(" ${userCredential.user.toString()}");
                     // print(" ${userCredential.credential!.signInMethod}");
+                  }).onError((error, stackTrace) {
+                    print("email-already-in-use");
                   });
                 } catch (e) {
                   print("Error ${e.toString()}");
@@ -123,10 +125,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               child: Text(
                 "Sign Up",
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
-            SizedBox(height: 20)
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                String email = emailController.text.toString();
+                String password = passController.text.toString();
+
+                try {
+                  firebase_auth
+                      .signInWithEmailAndPassword(
+                          email: email, password: password)
+                      .then((UserCredential userCredential) {
+                    print(" ${userCredential.user.toString()}");
+                    print(" ${userCredential.credential!.signInMethod}");
+                  }).onError((error, stackTrace) {
+                    print(
+                        "The supplied auth credential is incorrect, malformed or has expired");
+                  });
+                } catch (e) {
+                  print("Error ${e.toString()}");
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(2000, 50),
+                backgroundColor: Colors.blue, // Background color
+                padding: EdgeInsets.symmetric(
+                    horizontal: 50, vertical: 15), // Button padding
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                ),
+              ),
+              child: Text(
+                "LogIn",
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
