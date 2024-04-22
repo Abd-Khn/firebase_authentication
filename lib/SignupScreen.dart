@@ -33,137 +33,213 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              style: GoogleFonts.poppins(fontSize: 16),
-              textInputAction: TextInputAction.none,
-              obscureText: false,
-              autofocus: false,
-              keyboardType: TextInputType.emailAddress,
-              textAlignVertical: TextAlignVertical.bottom,
-              decoration: InputDecoration(
-                fillColor: Colors.black26,
-                filled: true,
-                prefixIcon: Icon(
-                  Icons.alternate_email,
-                  size: 18,
-                  color: Color(0xFF280137),
-                ),
-                hintText: "Email",
-                hintStyle: GoogleFonts.poppins(),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: emailController,
+                style: GoogleFonts.poppins(fontSize: 16),
+                textInputAction: TextInputAction.none,
+                obscureText: false,
+                autofocus: false,
+                keyboardType: TextInputType.emailAddress,
+                textAlignVertical: TextAlignVertical.bottom,
+                decoration: InputDecoration(
+                  fillColor: Colors.black26,
+                  filled: true,
+                  prefixIcon: Icon(
+                    Icons.alternate_email,
+                    size: 18,
+                    color: Color(0xFF280137),
+                  ),
+                  hintText: "Email",
+                  hintStyle: GoogleFonts.poppins(),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: passController,
-              style: GoogleFonts.poppins(fontSize: 16),
-              textInputAction: TextInputAction.none,
-              obscureText: true,
-              autofocus: false,
-              keyboardType: TextInputType.emailAddress,
-              textAlignVertical: TextAlignVertical.bottom,
-              decoration: InputDecoration(
-                fillColor: Colors.black26,
-                filled: true,
-                prefixIcon: Icon(
-                  Icons.password,
-                  size: 18,
-                  color: Color(0xFF280137),
-                ),
-                hintText: "Password",
-                hintStyle: GoogleFonts.poppins(),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
+              SizedBox(
+                height: 20,
+              ),
+              TextField(
+                controller: passController,
+                style: GoogleFonts.poppins(fontSize: 16),
+                textInputAction: TextInputAction.none,
+                obscureText: true,
+                autofocus: false,
+                keyboardType: TextInputType.emailAddress,
+                textAlignVertical: TextAlignVertical.bottom,
+                decoration: InputDecoration(
+                  fillColor: Colors.black26,
+                  filled: true,
+                  prefixIcon: Icon(
+                    Icons.password,
+                    size: 18,
+                    color: Color(0xFF280137),
+                  ),
+                  hintText: "Password",
+                  hintStyle: GoogleFonts.poppins(),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                String email = emailController.text.toString();
-                String password = passController.text.toString();
+              SizedBox(
+                height: 50,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  String email = emailController.text.toString();
+                  String password = passController.text.toString();
 
-                try {
-                  firebase_auth
-                      .createUserWithEmailAndPassword(
-                          email: email, password: password)
-                      .then((UserCredential userCredential) {
-                    // print(" ${userCredential.user.toString()}");
-                    // print(" ${userCredential.credential!.signInMethod}");
-                  }).onError((error, stackTrace) {
-                    print("email-already-in-use");
-                  });
-                } catch (e) {
-                  print("Error ${e.toString()}");
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(2000, 50),
-                backgroundColor: Colors.blue, // Background color
-                padding: EdgeInsets.symmetric(
-                    horizontal: 50, vertical: 15), // Button padding
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                  try {
+                    firebase_auth
+                        .createUserWithEmailAndPassword(
+                            email: email, password: password)
+                        .then((UserCredential userCredential) {
+                      // print(" ${userCredential.user.toString()}");
+                      // print(" ${userCredential.credential!.signInMethod}");
+                    }).onError((error, stackTrace) {
+                      print("email-already-in-use");
+                    });
+                  } catch (e) {
+                    print("Error ${e.toString()}");
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(2000, 50),
+                  backgroundColor: Colors.blue, // Background color
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 50, vertical: 15), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // Rounded corners
+                  ),
+                ),
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
-              child: Text(
-                "Sign Up",
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                String email = emailController.text.toString();
-                String password = passController.text.toString();
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  String email = emailController.text.toString();
+                  String password = passController.text.toString();
 
-                try {
-                  firebase_auth
-                      .signInWithEmailAndPassword(
-                          email: email, password: password)
-                      .then((UserCredential userCredential) {
-                    print(" ${userCredential.user.toString()}");
-                    print(" ${userCredential.credential!.signInMethod}");
-                  }).onError((error, stackTrace) {
-                    print(
-                        "The supplied auth credential is incorrect, malformed or has expired");
-                  });
-                } catch (e) {
-                  print("Error ${e.toString()}");
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(2000, 50),
-                backgroundColor: Colors.blue, // Background color
-                padding: EdgeInsets.symmetric(
-                    horizontal: 50, vertical: 15), // Button padding
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
+                  try {
+                    firebase_auth
+                        .signInWithEmailAndPassword(
+                            email: email, password: password)
+                        .then((UserCredential userCredential) {
+                      print(" ${userCredential.user.toString()}");
+                      print(" ${userCredential.credential!.signInMethod}");
+                    }).onError((error, stackTrace) {
+                      print(
+                          "The supplied auth credential is incorrect, malformed or has expired");
+                    });
+                  } catch (e) {
+                    print("Error ${e.toString()}");
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(2000, 50),
+                  backgroundColor: Colors.blue, // Background color
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 50, vertical: 15), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // Rounded corners
+                  ),
+                ),
+                child: Text(
+                  "LogIn",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
-              child: Text(
-                "LogIn",
-                style: TextStyle(fontSize: 16, color: Colors.white),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  try {
+                    firebase_auth.signInAnonymously().then((value) {
+                      print("object ${firebase_auth.currentUser.toString()}");
+                    }).onError((error, stackTrace) {
+                      print(
+                          "The supplied auth credential is incorrect, malformed or has expired");
+                    });
+                  } catch (e) {
+                    print("Error ${e.toString()}");
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(2000, 50),
+                  backgroundColor: Colors.blue, // Background color
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 50, vertical: 15), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // Rounded corners
+                  ),
+                ),
+                child: Text(
+                  "Anonymous LogIn",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  try {
+                    print("object ${firebase_auth.currentUser.toString()}");
+                  } catch (e) {
+                    print("Error ${e.toString()}");
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(2000, 50),
+                  backgroundColor: Colors.blue, // Background color
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 50, vertical: 15), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // Rounded corners
+                  ),
+                ),
+                child: Text(
+                  "SignOut",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  try {
+                    firebase_auth.signOut();
+                  } catch (e) {
+                    print("Error ${e.toString()}");
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(2000, 50),
+                  backgroundColor: Colors.blue, // Background color
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 50, vertical: 15), // Button padding
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // Rounded corners
+                  ),
+                ),
+                child: Text(
+                  "Current User",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
